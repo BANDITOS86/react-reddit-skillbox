@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+// Ваш файл Post.tsx
+
+import React, { useEffect, useRef } from "react";
 import styles from "./post.css";
 import ReactDOM from "react-dom";
 import { PostComment } from "./PostComment";
@@ -11,7 +13,10 @@ export function Post() {
   const ref = useRef<HTMLDivElement>(null);
   const history = useHistory();
 
-  const commentsData = usePostCommentsData({
+  const node = document.querySelector("#modal_root");
+  if (!node) return null;
+
+  const { isLoading, data: commentsData } = usePostCommentsData({
     postId: id,
     subreddit: subreddit,
   });
@@ -20,10 +25,7 @@ export function Post() {
     const handleClickOutside = (event: MouseEvent) => {
       if (!ref.current) return;
 
-      if (
-        event.target instanceof Node &&
-        !ref.current.contains(event.target)
-      ) {
+      if (event.target instanceof Node && !ref.current.contains(event.target)) {
         history.push("/posts");
       }
     };
@@ -34,13 +36,6 @@ export function Post() {
       document.removeEventListener("click", handleClickOutside);
     };
   }, [history]);
-
-  if (commentsData.length === 0) {
-    return null;
-  }
-
-  const node = document.querySelector("#modal_root");
-  if (!node) return null;
 
   return ReactDOM.createPortal(
     <div className={styles.modal} ref={ref}>
@@ -72,8 +67,13 @@ export function Post() {
       <CommentFormContainer />
 
       <div className={styles.commentsContainer}>
-        {commentsData.length === 0 ? (
-          <p>No comments available</p>
+        {isLoading ? (
+          <div className={styles.text}>
+            Reddit...
+            <span className={styles.preloader}></span>
+          </div>
+        ) : commentsData.length === 0 ? (
+          <p>Комментарии отсутствуют</p>
         ) : (
           commentsData.map((commentData) => (
             <PostComment key={commentData.commentId} {...commentData} />

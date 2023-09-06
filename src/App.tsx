@@ -50,7 +50,7 @@ function AppComponent() {
                     <Redirect to="/posts" />
                   </Route>
 
-                  <Route path="/posts">
+                  <Route path="/posts" >
                     <CardsList />
 
                     <Switch>
