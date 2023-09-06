@@ -1,0 +1,67 @@
+.commentContainer {
+  display: flex;
+  width: 100%;
+  margin-top: 33px;
+}
+
+.commentContainer .counterContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  min-width: 40px;
+}
+
+.commentContainer .counterContainer .verticalLine {
+  width: 3px;
+  height: 100%;
+  background-color: var(--greyD9);
+}
+
+.commentContainer .textContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.commentContainer .textContainer .metaData {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin-bottom: 13px;
+  gap: 4px;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.commentContainer .textContainer .metaData .createdAt {
+  color: var(--grey99);
+}
+
+.commentContainer .textContainer .metaData .userLabel {
+  padding: 3px 7px;
+  background-color: var(--greyD9);
+  color: #333333;
+}
+
+.commentContainer .textContainer .textContent {
+  margin-bottom: 13px;
+}
+
+.commentContainer .textContainer .actions {
+  display: flex;
+}
+
+.commentContainer .textContainer .actions .actionItem {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.commentContainer .textContainer .actions .actionItem:not(:last-child) {
+  margin-right: 27px;
+}
+
+.commentContainer .textContainer .postCommentForm {
+  margin-top: 33px;
+}

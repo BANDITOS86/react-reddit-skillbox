@@ -1,0 +1,77 @@
+.icon {
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.s12 {
+  width: 12px;
+  height: 12px;
+}
+
+.s1214 {
+  width: 12px;
+  height: 14px;
+}
+
+.s1214 > svg {
+  width: 12px;
+  height: 14px;
+}
+
+.s14 {
+  width: 14px;
+  height: 14px;
+}
+
+.s14 > svg {
+  width: 14px;
+  height: 14px;
+}
+
+.s16 {
+  width: 16px;
+  height: 14px;
+}
+
+.s16 > svg {
+  width: 16px;
+  height: 14px;
+}
+
+@media all and (min-width: 320px) and (max-width: 1023px) {
+  .m12 {
+    width: 12px;
+    height: 12px;
+  }
+
+  .m14 {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+@media all and (min-width: 1024px) and (max-width: 1539px) {
+  .t12 {
+    width: 12px;
+    height: 12px;
+  }
+
+  .t14 {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+@media all and (min-width: 1540px) {
+  .d12 {
+    width: 12px;
+    height: 12px;
+  }
+
+  .d14 {
+    width: 14px;
+    height: 14px;
+  }
+}
