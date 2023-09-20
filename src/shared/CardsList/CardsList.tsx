@@ -17,22 +17,20 @@ export function CardsList() {
   // Состояния для управления подгрузкой постов и кнопкой "Загрузить ещё"
   const [nextAfter, setNextAfter] = useState("");
   const [nextLoadingNumber, setNextLoadingNumber] = useState(1);
-
   const [hasLoadedInitially, setHasLoadedInitially] = useState(false);
+  // Количество подгрузок перед появлением кнопки "Загрузить ещё"
+  const SHOW_LOAD_BUTTON_NUMBER = 3;
 
   // Ссылка на нижний конец списка
   const bottomOfList = useRef<HTMLDivElement>(null);
-
-  // Количество подгрузок перед появлением кнопки "Загрузить ещё"
-  const SHOW_LOAD_BUTTON_NUMBER = 3;
 
   useEffect(() => {
     // Проверка, нужно ли выполнять подгрузку
     if (
       !token ||
       token === "undefined" ||
-      nextLoadingNumber === SHOW_LOAD_BUTTON_NUMBER ||
-      (!hasLoadedInitially && !bottomOfList.current)
+       (!hasLoadedInitially && !bottomOfList.current) ||
+      nextLoadingNumber % SHOW_LOAD_BUTTON_NUMBER === 0
     )
       return;
 
@@ -63,7 +61,8 @@ export function CardsList() {
         // Обновление состояний для отображения постов
         setNextAfter(after);
         setPosts((prevChildren) => prevChildren.concat(...children));
-        setNextLoadingNumber((prevLoadingNumber) => prevLoadingNumber + 1);
+        setNextLoadingNumber(nextLoadingNumber + 1);
+         setLoading(false);
       } catch (error) {
         setErrorLoading(String(error));
       }
@@ -74,22 +73,19 @@ export function CardsList() {
     // Создание наблюдателя IntersectionObserver для отслеживания нижнего конца списка
     const observer = new IntersectionObserver(
       (entries) => {
-        // Проверка, видим ли нижний конец списка и не третья ли подгрузка
-        if (
-          entries[0].isIntersecting &&
-          nextLoadingNumber % SHOW_LOAD_BUTTON_NUMBER !== 0
-        ) {
-          // Вызов функции загрузки
-          load();
-        }
-
         // Если компонент монтируется и обнаруживает, что IntersectionObserver уже видит конец списка, установите флаг hasLoadedInitially в true.
         if (!hasLoadedInitially && entries[0].isIntersecting) {
           setHasLoadedInitially(true);
         }
+
+        // Проверка, видим ли нижний конец списка и не третья ли подгрузка
+        if (hasLoadedInitially && entries[0].isIntersecting) {
+          // Вызов функции загрузки
+          load();
+        }
       },
       {
-        rootMargin: "10px",
+        rootMargin: "100px",
       }
     );
 
@@ -109,14 +105,13 @@ export function CardsList() {
     nextAfter,
     token,
     nextLoadingNumber,
-    hasLoadedInitially,
   ]);
 
   // Обработчик клика на кнопку "Загрузить ещё"
   function handleLoadMoreClick() {
     // Начало загрузки и увеличение счетчика подгрузок
     setLoading(true);
-    setNextLoadingNumber((prevLoadingNumber) => prevLoadingNumber + 1);
+    setNextLoadingNumber(nextLoadingNumber + 1);
   }
 
   return (
