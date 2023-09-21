@@ -8,7 +8,7 @@
     "predeploy": "npm run build:dev",
     "deploy": "gh-pages -d build:dev",
     "build:dev": "cross-env NODE_ENV=development webpack --config webpack.config.js",
-    "build:prod": "cross-env NODE_ENV=production webpack --config webpack.config.js",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "dev": "cross-env NODE_ENV=development CLIENT_ID=TMHPX64WOyFQF7-uoZ01UA node ./bin/dev.js",
     "test": "jest"
   },
