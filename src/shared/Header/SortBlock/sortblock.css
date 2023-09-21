@@ -5,6 +5,17 @@
   margin: 0 0 20px;
 }
 
+.sortSelect {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border: none;
+  background: transparent;
+  outline: none;
+  color: var(--orange);
+}
+
 @media all and (min-width: 1024px) {
   .sortBlock {
     background-color: transparent;
