@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styles from './searchblock.css';
 import { UserBlock } from './UserBlock';
-// import { userContext } from '../../context/userContext';
 import { useUserData } from '../../../hooks/useUserData';
 
 export function SearchBlock() {
